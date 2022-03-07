@@ -25,6 +25,20 @@
   font-size: 1rem;
 }
 
+img.tengah {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+	 width: 200px;
+     height: 200px;
+}
+
+body {
+   background-image: url("https://4.bp.blogspot.com/-F_zAkVsUUhg/U001yixdiXI/AAAAAAAAM24/0tajb4HKEoI/s1600/Keren03.jpg");
+   background-repeat: no-repeat;
+   background-size:cover
+}
+
 #hasilTerjemah  {
   list-style: none unset none;
 }

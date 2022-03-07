@@ -137,7 +137,7 @@ kataAsal.onkeyup = function () {
 
     // Jika spasi saja, tidak diproses
     if (!kataAsals.replace(/\s/g, '').length) {
-        hasilTerjemah.innerHTML = 'Selamat menterjemahkan';
+        hasilTerjemah.innerHTML = 'Kalo Kurang Akurat Protes Saja Ke Tamado';
         hasilTerjemah.classList.remove("alert", "alert-info", "alert-warning");
         hasilTerjemah.classList.add("alert", "alert-info");
     } else {
@@ -229,7 +229,7 @@ aksaraAsal.onkeyup = function () {
     // Jika spasi saja, tidak diproses
     if (!aksaraAsals.replace(/\s/g, '').length) {
         aksaraAsal.classList.remove("aksaraLampung");
-        hasilTerjemah.innerHTML = 'Selamat menterjemahkan';
+        hasilTerjemah.innerHTML = 'Kalo Kurang Akurat Protes Saja Ke Tamado';
         hasilTerjemah.classList.remove("alert", "alert-info", "alert-warning");
         hasilTerjemah.classList.add("alert", "alert-info");
     } else {
