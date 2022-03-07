@@ -27,7 +27,7 @@ function fetchKamus() {
             // Simpan Data
             localStorage.setItem('kamusJSON', JSON.stringify(data));
             kamus = data;
-            hasilTerjemah.innerHTML = 'Siap menterjemahkan';
+            hasilTerjemah.innerHTML = 'Kalo Ga Akurat Protes Ke Tamado';
             hasilTerjemah.classList.remove("alert", "alert-info", "alert-warning");
             hasilTerjemah.classList.add("alert", "alert-info");
 
@@ -42,7 +42,7 @@ function fetchKamus() {
 // Mengambil data dari web storage
 function fetchKamusDariLocalStorage(data) {
     kamus = JSON.parse(data);
-    hasilTerjemah.innerHTML = 'Siap menterjemahkan (tersedia offline)';
+    hasilTerjemah.innerHTML = 'Kalo Ga Akurat Protes Ke Tamado';
     hasilTerjemah.classList.remove("alert", "alert-info", "alert-warning");
     hasilTerjemah.classList.add("alert", "alert-info");
 };
