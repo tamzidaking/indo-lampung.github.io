@@ -1,11 +1,11 @@
-/*jslint browser: true*/
+
 'use strict';
 var kamusJSON = {};
 var kamus = {};
 
 var hasilTerjemah = document.getElementById('hasilTerjemah');
 
-// Memeriksa apakah web storage tersedia
+
 function storageAvailable(type) {
     try {
         var storage = window[type],
@@ -18,16 +18,16 @@ function storageAvailable(type) {
     }
 };
 
-// Mengambil data JSON dari server
+
 function fetchKamus() {
-    var url = './dispatcher/indonesia2lampung.json'; // URL dari data JSON
+    var url = './dispatcher/indonesia2lampung.json';
     fetch(url)
         .then((resp) => resp.json())
         .then(function (data) {
-            // Simpan Data
+           
             localStorage.setItem('kamusJSON', JSON.stringify(data));
             kamus = data;
-            hasilTerjemah.innerHTML = 'Kalo Ga Akurat Protes Ke Tamado';
+            hasilTerjemah.innerHTML = 'Kamus Bahasa Lampung-Indonesia';
             hasilTerjemah.classList.remove("alert", "alert-info", "alert-warning");
             hasilTerjemah.classList.add("alert", "alert-info");
 
@@ -39,17 +39,17 @@ function fetchKamus() {
         });
 };
 
-// Mengambil data dari web storage
+
 function fetchKamusDariLocalStorage(data) {
     kamus = JSON.parse(data);
-    hasilTerjemah.innerHTML = 'Kalo Ga Akurat Protes Ke Tamado';
+    hasilTerjemah.innerHTML = 'Kamus Bahasa Lampung-Indonesia';
     hasilTerjemah.classList.remove("alert", "alert-info", "alert-warning");
     hasilTerjemah.classList.add("alert", "alert-info");
 };
 
 if (storageAvailable('localStorage')) {
     if (localStorage.getItem('kamusJSON') === null) {
-        // Pertama kali dipakai atau belum ada data tersimpan
+        
         fetchKamus();
         console.log("Fetch dari API");
     } else {
@@ -66,7 +66,7 @@ function terjemah(kataAsl, bhasa, strArray) {
         kataT = "idkata";
 
 
-    // Menukar variabel sesuai dengan bahasa asal
+    
     if (bhasa === "indonesia") {
         kataA = "idkata";
         kataT = "lpgkata";
@@ -79,7 +79,7 @@ function terjemah(kataAsl, bhasa, strArray) {
         j = 0;
 
     for (let i = 0; i < strArray.length; i++) {
-        if (strArray[i][kataA] === kataAsl) // test / match
+        if (strArray[i][kataA] === kataAsl) 
         {
             hasils[j] = new Array();
             hasils[j][0] = strArray[i][kataA];
@@ -96,14 +96,14 @@ function terjemah(kataAsl, bhasa, strArray) {
 };
 
 
-//Fungsi untuk memudahkan buat Node
+
 function createNode(element) {
-    return document.createElement(element); // Membuat tipe elemen yang dilewatkan melalui parameter
+    return document.createElement(element); 
 };
 
-//Fungsi untuk menambahkan sub node di bawah Node
+
 function append(parent, el) {
-    return parent.appendChild(el); // Append parameter kedua ke yang pertama
+    return parent.appendChild(el); 
 };
 
 var kataAsal = document.getElementById('kataAsal');
@@ -132,23 +132,23 @@ aksaraAsal.addEventListener("focusout", function () {
 });
 
 kataAsal.onkeyup = function () {
-    //Merubah ke huruf kecil semua agar tidak ada perbedaan huruf kecil dan besar
+    
     let kataAsals = kataAsal.value.toLowerCase();
 
-    // Jika spasi saja, tidak diproses
+    
     if (!kataAsals.replace(/\s/g, '').length) {
-        hasilTerjemah.innerHTML = 'Kalo Kurang Akurat Protes Saja Ke Tamado';
+        hasilTerjemah.innerHTML = 'Kamus Bahasa Lampung-Indonesia';
         hasilTerjemah.classList.remove("alert", "alert-info", "alert-warning");
         hasilTerjemah.classList.add("alert", "alert-info");
     } else {
-        // Mengubah kata/kalimat yang diketik menjadi array String
+        
         let kataAl = kataAsals.split(/\s+/);
-        // jika elemen akhir kosong, elemen akhir dibuang
+        
         if (kataAl[kataAl.length - 1] == ('')) {
             kataAl.pop();
         }
 
-        //Mengosongkan nilai dan menghilangkan style
+        
         hasilTerjemah.innerHTML = '';
         hasilTerjemah.classList.remove("alert", "alert-info", "alert-warning");
         let strong = createNode("strong");
@@ -160,17 +160,17 @@ kataAsal.onkeyup = function () {
 
 
         for (let i = 0; i < kataAl.length; i++) {
-            //menterjemahkan
+            
             let terjemahan = terjemah(kataAl[i], bahasa.value, kamus);
 
-            //membuat span dan menambahkannya ke div#hasilTerjemah
+            
             let pKata = createNode("p");
             pKata.innerHTML = kataAl[i] + ' (' + bahasa.value + ') ';
             append(hasilTerjemah, createNode("hr"));
             append(hasilTerjemah, pKata);
             append(hasilTerjemah, createNode("hr"));
 
-            //menambahkan ke bagian strong untuk diaksarakan
+            
             spanAksara.innerHTML += aksarakan(kataAl[i]) + ' ';
 
             if (bahasa.value === "indonesia") {
@@ -178,17 +178,17 @@ kataAsal.onkeyup = function () {
                     let p = createNode('p'),
                         span1 = createNode('span'),
                         span2 = createNode('span'),
-                        span3 = createNode('span'); // memakai fungsi pembuat elemen
+                        span3 = createNode('span'); 
                     span1.innerHTML = dt[0] + " = ";
                     span2.innerHTML = aksarakan(dt[1]);
-                    span2.classList.add("aksaraLampung"); //diubah menjadi aksara
+                    span2.classList.add("aksaraLampung"); 
                     span3.innerHTML = " (" + dt[1] + ")";
                     if (dt[2] != null) {
                         let sup = createNode('sup');
                         sup.innerHTML = dt[2];
                         append(span3, sup);
                     }
-                    append(p, span1); // memakai fungsi append ke parameter pertama
+                    append(p, span1); 
                     append(p, span2);
                     append(p, span3);
                     append(hasilTerjemah, p);
@@ -198,18 +198,18 @@ kataAsal.onkeyup = function () {
                     let p = createNode('p'),
                         span1 = createNode('span'),
                         span2 = createNode('span'),
-                        span3 = createNode('span'); // memakai fungsi pembuat elemen
+                        span3 = createNode('span'); 
                     span1.innerHTML = aksarakan(dt[0]);
-                    span1.classList.add("aksaraLampung"); //diubah menjadi aksara
+                    span1.classList.add("aksaraLampung"); 
                     span2.innerHTML = " (" + dt[0] + ")";
-                    //jika ada dialek
+                   
                     if (dt[2] != null) {
                         let sup = createNode('sup');
                         sup.innerHTML = dt[2];
                         append(span2, sup);
                     }
                     span3.innerHTML = " = " + dt[1];
-                    append(p, span1); // memakai fungsi append ke parameter pertama
+                    append(p, span1); 
                     append(p, span2);
                     append(p, span3);
                     append(hasilTerjemah, p);
@@ -226,22 +226,22 @@ aksaraAsal.onkeyup = function () {
 
     let aksaraAsals = aksaraAsal.value;
 
-    // Jika spasi saja, tidak diproses
+   
     if (!aksaraAsals.replace(/\s/g, '').length) {
         aksaraAsal.classList.remove("aksaraLampung");
-        hasilTerjemah.innerHTML = 'Kalo Kurang Akurat Protes Saja Ke Tamado';
+        hasilTerjemah.innerHTML = 'Kamus Bahasa Lampung-Indonesia';
         hasilTerjemah.classList.remove("alert", "alert-info", "alert-warning");
         hasilTerjemah.classList.add("alert", "alert-info");
     } else {
         aksaraAsal.classList.add("aksaraLampung");
-        // Mengubah kata/kalimat yang diketik menjadi array String
+        
         let aksaraAl = aksaraAsals.split(/\s+/);
-        // jika elemen akhir kosong, elemen akhir dibuang
+     
         if (aksaraAl[aksaraAl.length - 1] == ('')) {
             aksaraAl.pop();
         }
 
-        //Mengosongkan nilai dan menghilangkan style
+        
         hasilTerjemah.innerHTML = '';
         hasilTerjemah.classList.remove("alert", "alert-info", "alert-warning");
         let strong = createNode("strong");
@@ -253,17 +253,17 @@ aksaraAsal.onkeyup = function () {
 
 
         for (let i = 0; i < aksaraAl.length; i++) {
-            //menterjemahkan
+           
             let terjemahan = terjemah(alfabetkan(aksaraAl[i]), bahasa.value, kamus);
 
-            //membuat span dan menambahkannya ke div#hasilTerjemah
+           
             let pKata = createNode("p");
             pKata.innerHTML = alfabetkan(aksaraAl[i]) + ' (' + bahasa.value + ') ';
             append(hasilTerjemah, createNode("hr"));
             append(hasilTerjemah, pKata);
             append(hasilTerjemah, createNode("hr"));
 
-            //menambahkan ke bagian strong untuk diaksarakan
+           
             spanAksara.innerHTML += aksaraAl[i] + ' ';
 
             if (bahasa.value === "indonesia") {
@@ -271,17 +271,17 @@ aksaraAsal.onkeyup = function () {
                     let p = createNode('p'),
                         span1 = createNode('span'),
                         span2 = createNode('span'),
-                        span3 = createNode('span'); // memakai fungsi pembuat elemen
+                        span3 = createNode('span');
                     span1.innerHTML = dt[0] + " = ";
                     span2.innerHTML = aksarakan(dt[1]);
-                    span2.classList.add("aksaraLampung"); //diubah menjadi aksara
+                    span2.classList.add("aksaraLampung"); 
                     span3.innerHTML = " (" + dt[1] + ")";
                     if (dt[2] != null) {
                         let sup = createNode('sup');
                         sup.innerHTML = dt[2];
                         append(span3, sup);
                     }
-                    append(p, span1); // memakai fungsi append ke parameter pertama
+                    append(p, span1); 
                     append(p, span2);
                     append(p, span3);
                     append(hasilTerjemah, p);
@@ -291,9 +291,9 @@ aksaraAsal.onkeyup = function () {
                     let p = createNode('p'),
                         span1 = createNode('span'),
                         span2 = createNode('span'),
-                        span3 = createNode('span'); // memakai fungsi pembuat elemen
+                        span3 = createNode('span'); 
                     span1.innerHTML = aksarakan(dt[0]);
-                    span1.classList.add("aksaraLampung"); //diubah menjadi aksara
+                    span1.classList.add("aksaraLampung"); 
                     span2.innerHTML = " (" + dt[0] + ")";
                     //jika ada dialek
                     if (dt[2] != null) {
@@ -302,7 +302,7 @@ aksaraAsal.onkeyup = function () {
                         append(span2, sup);
                     }
                     span3.innerHTML = " = " + dt[1];
-                    append(p, span1); // memakai fungsi append ke parameter pertama
+                    append(p, span1);
                     append(p, span2);
                     append(p, span3);
                     append(hasilTerjemah, p);

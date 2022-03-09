@@ -69,12 +69,12 @@ function aksarakan(kataLampung) {
 
     aksara = aksara.replace(regexxawal, function (a) {
         return a[0] + a[1] + "x" + a[2] + a[3];
-    }); // karakter 1 dan 2 tidak dihapus, harusnya ditambahkan karakter 3 yaitu x
+    }); 
     console.log('/ awal ' + aksara);
 
     aksara = aksara.replace(regexx, function (a) {
         return (a.search(regextandabaca) != -1  ? a.substring(0, a.length-1) + "x" + a.substring(a.length-1) : a + "x") ;
-    }); // karakter 1 dan 2 tidak dihapus, harusnya ditambahkan karakter 3 yaitu x
+    }); 
     console.log('/ ' + aksara);
 
     aksara = aksara.replace(regexangx, function (a) {
@@ -104,11 +104,11 @@ function aksarakan(kataLampung) {
    
     aksara = aksara.replace(regexa, function (a) {
         return a[0] + (a[2] ? a[2]  : '');
-    }); //karakter 1 dan 3 harusnya tidak dihapus
+    }); 
     console.log('a ' + aksara);
     aksara = aksara.replace(regexawal, function (a) {
         return "a" + a;
-    }); // Ditambahkan karakter a di depan
+    }); 
     console.log('awal ' + aksara);
     
     return aksara;
@@ -117,7 +117,7 @@ function aksarakan(kataLampung) {
 function alfabetkan(aksaraLampung) {
     var kata = aksaraLampung;
 
-    // Induk Huruf
+    
     const regexKa = /[KkQq]/g;
     const regexGa = /[g]/g;
     const regexNga = /[G]/g;
@@ -139,7 +139,7 @@ function alfabetkan(aksaraLampung) {
     const regexHa = /[h]/g;
     const regexGha = /[H]/g;
 
-    // Anak Huruf
+    
     const regexNengen = /a[x]/g;
     const regexUlan1 = /a[i]/g;
     const regexUlan2 = /a[E]/g;
@@ -153,10 +153,9 @@ function alfabetkan(aksaraLampung) {
     const regexTekelungai = /I/g;
     const regexKeleniah = /A/g;
 
-    // Kombinasi anak huruf yang perlu dipertimbangkan
-    // eu, ei, ou, oi, iu, io, eo
+    
 
-    // Induk huruf
+    
     kata = kata.replace(regexA, 'a');
     kata = kata.replace(regexKa, 'ka');
     kata = kata.replace(regexGa, 'ga');
@@ -178,7 +177,7 @@ function alfabetkan(aksaraLampung) {
     kata = kata.replace(regexNga, 'nga');
     kata = kata.replace(regexNya, 'nya');
 
-    // Anak huruf
+    
     kata = kata.replace(regexNengen, function (a) {
         return a.substring(0, a.length-2) + '';
         });
@@ -187,7 +186,7 @@ function alfabetkan(aksaraLampung) {
         });
     kata = kata.replace(regexUlan2, function (a) {
         return a.substring(0, a.length-2) + 'é';
-        }); // Perlu dipertimbangkan alternatif untuk huruf é
+        }); 
     kata = kata.replace(regexBicek, function (a) {
         return a.substring(0, a.length-2) + 'e';
         });
